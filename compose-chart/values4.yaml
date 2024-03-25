@@ -1,0 +1,11 @@
+dockerServices:
+  - name: web
+    enable: true
+    build:
+      context: vuejs
+      target: development
+    ports:
+      - 8080:8080
+    volumes:
+      - ./vuejs:/project
+      - /project/node_modules

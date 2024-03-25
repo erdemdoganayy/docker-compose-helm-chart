@@ -1,0 +1,74 @@
+services:
+{{- range .Values.dockerServices }}
+  {{- if .enable }}
+    {{ .name }}:
+      {{- if .image }}
+      image: {{ .image }}
+      {{- end }}
+      {{- if .containerName }}
+      container_name: {{ .containerName }}
+      {{- end }}
+      {{- if .configFilePath }}
+      command:
+        - '--config.file={{ .configFilePath }}'
+      {{- end }}
+      {{- if .command }}
+      command:
+       {{- range .command }}
+        - {{ . }}
+       {{- end}}
+      {{- end }}
+      {{- if .ports }}
+      ports:
+        {{- range .ports }}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .restartPolicy }}
+      restart: {{ .restartPolicy }}
+      {{- end }}
+      {{- if .volumeMounts }}
+      volumes:
+        {{- range .volumeMounts}}
+        - {{ .name }}:{{ .mountPath }}
+        {{- end }}
+      {{- end }}
+      {{- if .volumes }}
+      volumes:
+        {{- range .volumes}}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .environment }}
+      environment: 
+        {{- range $key, $value := .environment }}
+        - {{ $key }}: {{ $value }}
+        {{- end }}
+      {{- end }}
+      {{- if .depends_on }}
+      depends_on:
+        {{- range .depends_on}}
+        - {{ . }}
+        {{- end }}
+      {{- end }}
+      {{- if .build }}
+      build:
+        context: {{ .build.context }}
+        target: {{ .build.target }}
+      {{- end }}
+      {{- if .networks }}
+      networks:
+       {{- range .networks }}
+        - {{ . }}
+       {{- end}}
+      {{- end }}
+      {{- if .networksIpv4 }}
+      {{- range $networkName, $networkConfig := .networksIpv4 }}
+      networks:
+        {{ $networkName }}:
+          ipv4_address: {{ $networkConfig.ipv4_address }}
+          ipv6_address: {{ $networkConfig.ipv6_address }}
+      {{- end }}
+      {{- end}}
+  {{- end}}
+{{- end}}

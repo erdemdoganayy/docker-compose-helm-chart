@@ -1,0 +1,58 @@
+dockerServices:
+  - name: prometheus
+    #enable: true
+    image: prom/prometheus
+    containerName: prometheus
+    command:
+      - "sleep 4800"
+    ports:
+      - 9090:9090
+    restartPolicy: unless-stopped
+    volumeMounts:
+      - name: prometheus-config
+        mountPath: /etc/prometheus
+      - name: prometheus-data
+        mountPath: /prometheus
+      
+  - name: grafana
+    enable: true
+    image: prom/grafana
+    containerName: grafana
+    configFilePath: /etc/grafana/grafana.yml
+    command:
+      - "sleep 4800"
+    ports:
+      - 9090:9090
+    restartPolicy: unless-stopped
+    volumeMounts:
+      - name: grafana-config
+        mountPath: /etc/grafana
+      - name: grafana-data
+        mountPath: /grafana
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: ${TIMEZONE}
+  
+  - name: redis
+    enable: true
+    image: redislabs/redismod
+    ports:
+      - '6379:6379'
+    networks:
+      - redis
+      - mongodb
+  - name: web
+    enable: true
+    build:
+      context: .
+      target: builder
+    ports:
+      - '8000:8000'
+    volumeMounts:
+      - name: asdas
+        mountPath: /code
+    depends_on:
+      - redis
+    command:
+      - "sleep 3600"
