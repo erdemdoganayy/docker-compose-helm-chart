@@ -1,6 +1,6 @@
 services:
 {{- range .Values.dockerServices }}
-  {{- if .enable }}
+  {{- if or (eq .enabled true) (eq .enabled nil) }}
     {{ .name }}:
       {{- if .image }}
       image: {{ .image }}
@@ -11,8 +11,7 @@ services:
       {{- if .configFilePath }}
       command:
         - '--config.file={{ .configFilePath }}'
-      {{- end }}
-      {{- if .command }}
+      {{- else if .command }}
       command:
        {{- range .command }}
         - {{ . }}
@@ -61,8 +60,7 @@ services:
        {{- range .networks }}
         - {{ . }}
        {{- end}}
-      {{- end }}
-      {{- if .networksIpv4 }}
+      {{- else if .networksIpv4 }}
       {{- range $networkName, $networkConfig := .networksIpv4 }}
       networks:
         {{ $networkName }}:

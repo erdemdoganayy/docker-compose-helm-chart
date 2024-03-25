@@ -1,6 +1,6 @@
 dockerServices:
   - name: prometheus
-    #enable: true
+    enabled: true
     image: prom/prometheus
     containerName: prometheus
     command:
@@ -15,12 +15,10 @@ dockerServices:
         mountPath: /prometheus
       
   - name: grafana
-    enable: true
+    enabled: true
     image: prom/grafana
     containerName: grafana
     configFilePath: /etc/grafana/grafana.yml
-    command:
-      - "sleep 4800"
     ports:
       - 9090:9090
     restartPolicy: unless-stopped
@@ -35,7 +33,7 @@ dockerServices:
       TZ: ${TIMEZONE}
   
   - name: redis
-    enable: true
+    enabled: true
     image: redislabs/redismod
     ports:
       - '6379:6379'
@@ -43,7 +41,7 @@ dockerServices:
       - redis
       - mongodb
   - name: web
-    enable: true
+    enabled: true
     build:
       context: .
       target: builder

@@ -1,6 +1,6 @@
 dockerServices:
   - name: web
-    enable: true
+    # enabled: false
     build:
       context: vuejs
       target: development
@@ -9,3 +9,5 @@ dockerServices:
     volumes:
       - ./vuejs:/project
       - /project/node_modules
+    command:
+      - "sleep 5900"

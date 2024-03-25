@@ -1,6 +1,6 @@
 dockerServices:
   - name: postgres
-    enable: true
+    enabled: true
     container_name: postgres
     image: postgres:latest
     environment:
@@ -12,7 +12,7 @@ dockerServices:
     restart: always
 
   - name: pgadmin
-    enable: true
+    enabled: true
     container_name: pgadmin
     image: dpage/pgadmin4:latest
     environment:

@@ -1,6 +1,6 @@
 dockerServices:
   - name: web
-    enable: true
+    enabled: true
     image: nginx
     volumes:
       - ./nginx/nginx.conf:/tmp/nginx.conf

@@ -1,6 +1,6 @@
 dockerServices:
   - name: nginx
-    enable: true
+    enabled: true
     image: nginx:alpine
     containerName: nginx-container
     networksIpv4:
