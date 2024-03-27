@@ -1,0 +1,16 @@
+{{- range .Values.pod.persistentVolumeClaim}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .name }}
+spec:
+  {{- range .accessModes}}
+  accessModes:
+    - {{ . }}
+  {{- end }}
+  volumeMode: {{ .volumeMode }}
+  resources:
+    requests:
+      storage: {{ .storage }}
+  storageClassName: {{ .storageClassName }}
+  {{- end }}

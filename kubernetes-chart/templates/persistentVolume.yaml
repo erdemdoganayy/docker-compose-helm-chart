@@ -1,0 +1,16 @@
+{{- range .Values.pod.persistentVolume}}
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .name }}
+spec:
+  capacity:
+    storage: {{ .storage }}
+  volumeMode: {{ .volumeMode }}
+  {{- range .accessModes }}
+  accessModes:
+    - {{ . }}
+  {{- end }}
+  persistentVolumeReclaimPolicy: {{ .persistentVolumeReclaimPolicy }}
+  storageClassName: {{ .storageClassName }}
+  {{- end}}

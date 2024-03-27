@@ -1,0 +1,38 @@
+# Default values for kubernetes-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+pod:
+  name: nginx
+  image: nginx
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: ""
+  ports: 80
+  volumeMounts:
+    - mountPath: "/var/www/html"
+      name: mypd
+    - mountPath: "/var/www/html"
+      name: myvolume
+  volumes:
+  - name: mypd
+    persistentVolumeClaim:
+      claimName: pvc-1
+ 
+
+  persistentVolume:
+    - name: pv-1
+      storage: 5Gi
+      volumeMode: Filesystem
+      accessModes:
+        - ReadWriteOnce
+      persistentVolumeReclaimPolicy: Recycle
+      storageClassName: slow
+
+  persistentVolumeClaim:
+    - name: pvc-1
+      accessModes:
+        - ReadWriteOnce
+      volumeMode: Filesystem
+      storage: 8Gi
+      storageClassName: slow
