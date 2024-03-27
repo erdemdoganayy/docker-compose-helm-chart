@@ -22,7 +22,7 @@ pod:
 
   persistentVolume:
     - name: pv-1
-      storage: 5Gi
+      storage: 1Gi
       volumeMode: Filesystem
       accessModes:
         - ReadWriteOnce
@@ -34,5 +34,5 @@ pod:
       accessModes:
         - ReadWriteOnce
       volumeMode: Filesystem
-      storage: 8Gi
+      storage: 1Gi
       storageClassName: slow
