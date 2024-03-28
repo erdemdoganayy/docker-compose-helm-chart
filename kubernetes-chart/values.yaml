@@ -28,6 +28,7 @@ pod:
         - ReadWriteOnce
       persistentVolumeReclaimPolicy: Recycle
       storageClassName: slow
+      hostPath: /data
 
   persistentVolumeClaim:
     - name: pvc-1

@@ -13,4 +13,6 @@ spec:
   {{- end }}
   persistentVolumeReclaimPolicy: {{ .persistentVolumeReclaimPolicy }}
   storageClassName: {{ .storageClassName }}
+  hostPath:
+    path: {{ .hostPath }}
   {{- end}}
