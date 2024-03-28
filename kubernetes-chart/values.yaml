@@ -12,8 +12,6 @@ pod:
   volumeMounts:
     - mountPath: "/var/www/html"
       name: mypd
-    - mountPath: "/var/www/html"
-      name: myvolume
   volumes:
   - name: mypd
     persistentVolumeClaim:
