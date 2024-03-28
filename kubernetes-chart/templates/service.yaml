@@ -1,0 +1,16 @@
+{{- if .Values.pod }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.pod.service.name }}
+spec:
+  type: {{ .Values.pod.service.type }}
+  selector:
+    app: {{ .Values.pod.labels.app }}
+  ports:
+    - protocol: {{ .Values.pod.service.protocol }}
+      port: {{ .Values.pod.service.port }}
+      targetPort: {{ .Values.pod.service.targetPort }}
+      nodePort: {{ .Values.pod.service.nodePort }}
+{{- end }}
+

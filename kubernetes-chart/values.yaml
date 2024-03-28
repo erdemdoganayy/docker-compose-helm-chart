@@ -6,6 +6,8 @@ pod:
   name: nginx
   image: nginx
   pullPolicy: IfNotPresent
+  labels:
+    app: nginx
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
   ports: 80
@@ -17,7 +19,6 @@ pod:
     persistentVolumeClaim:
       claimName: pvc-1
  
-
   persistentVolume:
     - name: pv-1
       storage: 1Gi
@@ -35,3 +36,13 @@ pod:
       volumeMode: Filesystem
       storage: 1Gi
       storageClassName: slow
+
+  service:
+    name: nginx-service
+    type: NodePort
+    # selector:
+    #   app: my-app
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+    nodePort: 30000
